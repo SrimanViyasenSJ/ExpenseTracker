@@ -1,9 +1,10 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const Expense = require('./models/Expense'); // Expense model import
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import expense from "./Expense.js"; // Expense model import
 
 const app = express();
+const port = 3000;
 app.use(bodyParser.json());
 
 // ✅ Connect to MongoDB (local)
@@ -40,9 +41,6 @@ app.get('/', (req, res) => {
     res.send('API is working');
   });
   
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
-});
 // ✅ Update an expense
 app.put('/expenses/:id', async (req, res) => {
   try {
@@ -67,4 +65,8 @@ app.delete('/expenses/:id', async (req, res) => {
   } catch (err) {
     res.status(400).send({ error: err.message });
   }
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port {port}`);
 });
